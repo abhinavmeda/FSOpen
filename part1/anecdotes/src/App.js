@@ -7,6 +7,38 @@ const Button = ({ text, onClick }) => {
   
   )
 }
+const Display = ({ title, selected, votes }) => {
+  console.log(selected, votes)
+    return (
+    <div>
+      <h1> {title} </h1>
+      <div>{selected}</div>
+      <div>has {votes} {votes === 1 ? "vote" : "votes"} </div>
+    </div>
+  )
+  
+}
+const MostVoted = ({ allVotes, anecdotes }) => {
+  const max = Math.max(...allVotes)
+  if(max === 0){
+    return (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      <p>Nothing has been voted for</p>
+    </div>
+    )
+  }
+  
+  else{
+    const index = [...allVotes].indexOf(max)
+    return (
+      <div>
+        <Display title={"Anecdote with most votes"} selected={anecdotes[index]} votes={max}/>
+      </div>
+    )
+    
+  }
+}
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -32,10 +64,11 @@ const App = () => {
   }
   return (
     <div>
-      <div>{anecdotes[selected]}</div>
-      <div>has {votes[selected]} {votes[selected] === 1 ? "vote" : "votes"} </div>
+      
+      <Display title={"Anecdote of the day"} selected={anecdotes[selected]} votes={votes[selected]}/>
       <Button onClick={onClickVoteHandler}text={"vote"}/>
       <Button onClick={onClickHandler} text={"next anecdote"}/>
+      <MostVoted allVotes={votes} anecdotes={anecdotes}/>
     </div>
     
   )
