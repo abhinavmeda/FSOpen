@@ -12,7 +12,7 @@ const Button = ({ name, onClick }) => {
       <button onClick={onClick}>{name}</button>
   )
 }
-const Data = ({type, data}) => {
+const StatisticLine = ({type, data}) => {
   return (
     <div>
       {type} {data}
@@ -20,17 +20,24 @@ const Data = ({type, data}) => {
   )
 }
 const Statistics = ({ good, bad, neutral, all, average, positive }) => {
-  return(
-    <div>
-      <Data type={'good'} data={good}/>
-      <Data type={'neutral'} data={neutral}/>
-      <Data type={'bad'} data={bad}/>
-      <Data type={'all'} data={all}/>
-      <Data type={'average'} data={average}/>
-      <Data type={'positive'} data={positive}/>
-    </div>
-    
-  )
+  if(all === 0){
+    return (
+      <p>No feedback given</p>
+    )
+  }
+  else {
+    return(
+      <div>
+        <StatisticLine type={'good'} data={good}/>
+        <StatisticLine type={'neutral'} data={neutral}/>
+        <StatisticLine type={'bad'} data={bad}/>
+        <StatisticLine type={'all'} data={all}/>
+        <StatisticLine type={'average'} data={average}/>
+        <StatisticLine type={'positive'} data={positive}/>
+      </div>
+      
+    )
+  }
 }
 
 const App = () => {
@@ -42,7 +49,7 @@ const App = () => {
   let positive = (good / all) * 100
 
   if (isNaN(average)){average = 0}
-  if(isNaN(positive)){positive = 0}
+  if (isNaN(positive)){positive = 0}
   
   const incrementGood = () => setGood(good + 1)
   
