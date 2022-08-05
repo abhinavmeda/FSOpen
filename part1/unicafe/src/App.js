@@ -28,12 +28,45 @@ const Statistics = ({ good, bad, neutral, all, average, positive }) => {
   else {
     return(
       <div>
-        <StatisticLine type={'good'} data={good}/>
-        <StatisticLine type={'neutral'} data={neutral}/>
-        <StatisticLine type={'bad'} data={bad}/>
-        <StatisticLine type={'all'} data={all}/>
-        <StatisticLine type={'average'} data={average}/>
-        <StatisticLine type={'positive'} data={positive}/>
+        <table>
+          
+            <tr>
+              <td>
+                <StatisticLine type={'good'} data={good}/>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <StatisticLine type={'neutral'} data={neutral}/>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                <StatisticLine type={'bad'} data={bad}/>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <StatisticLine type={'all'} data={all}/>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <StatisticLine type={'average'} data={average}/>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <StatisticLine type={'positive'} data={positive}/>
+              </td>
+            </tr>
+
+        </table>
       </div>
       
     )
