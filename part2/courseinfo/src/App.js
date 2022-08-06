@@ -8,9 +8,18 @@ const Course = ({ course }) => {
     <div key={id}>
        <Header name={name}/>
       <Content content={parts}/>
+      <TotalExercises exercisesCount={parts.map(part => part.exercises)}/>
     </div>
   )
-  
+}
+
+const TotalExercises = ({ exercisesCount }) => {
+  const total = exercisesCount.reduce((sumSoFar, currentElement) => sumSoFar + currentElement, 0)
+  return (
+    <div>
+      <p> <strong>a total of {total} {total === 1? "exercise" : "exercises"}</strong></p>
+    </div>
+  )
 }
 const Part = ({ name, numberOfExercises}) => {
   return( 
@@ -44,6 +53,7 @@ const App = () => {
         exercises: 14,
         id: 3
       }
+      
     ]
   }
   return (
