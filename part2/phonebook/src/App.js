@@ -15,13 +15,22 @@ const Form = ({registrants, setRegistrants}) => {
   const [formNameInput, setNameInput] = useState('')
 
   const addRegistrants = (event) => {
-    event.preventDefault()
-    const newPerson = {
-      name: formNameInput
-    }
     
-    setRegistrants(registrants.concat(newPerson))
-    setNameInput('')
+    event.preventDefault()
+    
+    const exists = () => registrants.some(person => person.name === formNameInput)
+    
+    if(exists()){
+      alert(`${formNameInput} already exists in the phonebook`)
+      setNameInput('')
+    }
+    else{
+      const newPerson = {
+        name: formNameInput
+      }
+      setRegistrants(registrants.concat(newPerson))
+      setNameInput('')
+    }
   }
 
   const handleInputState = (event) => setNameInput(event.target.value)
