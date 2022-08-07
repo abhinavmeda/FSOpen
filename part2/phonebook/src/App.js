@@ -2,10 +2,13 @@ import { useState } from 'react'
 
 const Heading = ({ heading }) => <h2>{heading}</h2>
 
+const Person = ({ name, number}) => {
+  return <div>{name} {number}</div>
+}
 const Display = ({ registrants }) => {
   return (
     <div>
-      {registrants.map((person, i) => <div key={i}>{person.name} {person.number}</div>)}
+      {registrants.map((person, i) => <Person key={i} name={person.name} number={person.number}/>)}
     </div>
   )
 }
