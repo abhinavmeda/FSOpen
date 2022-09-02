@@ -14,8 +14,8 @@ const Display = ({ countries }) => {
         <p>Area: {countries[0].area}</p>
         <h3>Languages:</h3>
         <ul>
-          // iterating through a js object
-          // https://masteringjs.io/tutorials/fundamentals/iterate-object
+          {/* iterating through js object */}
+          {/* https://masteringjs.io/tutorials/fundamentals/iterate-object */}
           {Object.keys(languages).map(abbreviation => <li key={abbreviation}>{languages[abbreviation]}</li>)}
         </ul>
         <img src={countries[0].flags.png} alt={`flag of ${countries[0].name.common}`} width={200} height={200}/>
@@ -64,8 +64,8 @@ const Form = () => {
   }, [input])
   return (
     <>
-    // https://bobbyhadz.com/blog/react-dont-submit-form-on-enter
-    // event.preventDefault prevents a refresh of the page when user clicks enter
+    {/* event.preventDefault prevents a refresh of the page when user clicks enter */}
+    {/* https://bobbyhadz.com/blog/react-dont-submit-form-on-enter */}
     <form onSubmit={(event) => {event.preventDefault()}}>
       find countries <input value={input} onChange={handler}/>
     </form>
