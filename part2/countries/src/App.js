@@ -1,31 +1,42 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-
-const Display = ({ countries }) => {
-  if (countries.length === 0){
-    return <div>No countries found</div>
-  }
-  if(countries.length === 1){
-    const languages = countries[0].languages
+const CountryView = ({ country }) =>{
+  const languages = country.languages
     return (
       <div>
-        <h1>{countries[0].name.common}</h1>
-        <p>Capital: {countries[0].capital}</p>
-        <p>Area: {countries[0].area}</p>
+        <h1>{country.name.common}</h1>
+        <p>Capital: {country.capital}</p>
+        <p>Area: {country.area} km²</p>
         <h3>Languages:</h3>
         <ul>
           {/* iterating through js object */}
           {/* https://masteringjs.io/tutorials/fundamentals/iterate-object */}
           {Object.keys(languages).map(abbreviation => <li key={abbreviation}>{languages[abbreviation]}</li>)}
         </ul>
-        <img src={countries[0].flags.png} alt={`flag of ${countries[0].name.common}`} width={200} height={200}/>
+        <img src={country.flags.png} alt={`flag of ${country.name.common}`} width={200} height={200}/>
       </div>
     )
+}
+const ShowCountryViewButton = ({ country }) => {
+  const [click, setClick] = useState(false)
+  const hide = () => setClick(false)
+  const onClick = () => setClick(true)
+  if (click){
+    return <div> <CountryView country={country}/> <button onClick={hide}>hide</button></div>
+  }
+  return <button onClick={onClick}>show</button>
+}
+const Display = ({ countries }) => {
+  if (countries.length === 0){
+    return <div>No countries found</div>
+  }
+  if(countries.length === 1){
+    return <CountryView country={countries[0]}/>
   }
   else if (1 < countries.length && countries.length <= 10){
     return (
       <div>
-        {countries.map(country => <div key={country.name.common}>{country.name.common}</div>)}
+        {countries.map(country => <div key={country.name.common}>{country.name.common} <ShowCountryViewButton country={country}/></div>)}
       </div>
     )
   }
