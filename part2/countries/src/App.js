@@ -1,7 +1,30 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-const CountryView = ({ country }) =>{
+
+const Weather = ({ capitalName, data }) => {
+  return (
+    <div>
+      <h2>Weather in {capitalName}</h2>
+        <p>temperature {data.main.temp} celsius</p>
+        <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={"describing weather"}/>
+        <p>wind {data.wind.speed} m/s</p>
+    </div>
+  )
+}
+const CountryView = ({ country }) => {
   const languages = country.languages
+  console.log(languages)
+  const [data, setData] = useState([])
+  useEffect(() => {
+    const lat = country.capitalInfo.latlng[0]
+    const lon = country.capitalInfo.latlng[1]
+    axios
+    .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+    .then(response => setData(response.data))
+    .catch(error => console.log(error))
+  }, [country])
+  
+
     return (
       <div>
         <h1>{country.name.common}</h1>
@@ -13,9 +36,11 @@ const CountryView = ({ country }) =>{
           {/* https://masteringjs.io/tutorials/fundamentals/iterate-object */}
           {Object.keys(languages).map(abbreviation => <li key={abbreviation}>{languages[abbreviation]}</li>)}
         </ul>
-        <img src={country.flags.png} alt={`flag of ${country.name.common}`} width={200} height={200}/>
+        <img src={country.flags.png} alt={`flag of ${country.name.common}`} width={300} height={200}/>
+        {data.length !== 0 ? <Weather capitalName={country.capital} data={data}/> : null}
       </div>
     )
+    
 }
 const ShowCountryViewButton = ({ country }) => {
   const [click, setClick] = useState(false)
